@@ -1,4 +1,4 @@
-import { sendEmailVerification, sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
+import {  sendPasswordResetEmail, signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
@@ -46,7 +46,7 @@ const Login = () => {
     // send validation email
     sendPasswordResetEmail(auth, email)
     .then(()=>{
-      alert("Please Check Your Email")
+      alert("Please Check Email")
     })
     .catch(error => {
       console.log(error)
