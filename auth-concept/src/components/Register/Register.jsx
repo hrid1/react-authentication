@@ -1,40 +1,104 @@
 import { FaGoogle } from "react-icons/fa";
 import { FaGithubSquare } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { GithubAuthProvider, GoogleAuthProvider, createUserWithEmailAndPassword, getAuth, signInWithPopup } from "firebase/auth";
 import app from "../../firebase/firebase.config";
 import { useState } from "react";
 
 const Register = () => {
-    const [user, setUser] = useState({});
+    // const [user, setUser] = useState({});
     const auth = getAuth(app);
     const googleProvider = new GoogleAuthProvider();
+    const githubProvider = new GithubAuthProvider();
 
+    // google login
     const handleGoogleLogin = () => {
         console.log("hellov avai")
         signInWithPopup(auth, googleProvider)
         .then(result => {
             const reUser = result.user;
             console.log(reUser);
-            setUser(reUser);
+            setUser(reUser); 
         })
         .catch(error => {
             const errorMessage = error.user;
             console.log(errorMessage);
         })
     }
+
+    // github login
+    const handleGithubLogin = () => {
+      signInWithPopup(auth, githubProvider)
+      .then(result => {
+        const user = result.user;
+        console.log(user)
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        console.log(errorMessage)
+      })
+    }
+
+    // email and password login
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
+    // console.log(email, password)
+    const handleRegister = (e) => {
+      e.preventDefault()
+      setSuccess('')
+      setError('')
+
+      
+      if(email && password){
+        // validate password
+        if(!/^(?=.*[A-Z])/.test(password)){
+          setError('Invalid Password (no uppercase)')
+          return;
+        }
+        else if(!/^(?=.*[0-9])/.test(password)){
+          setError('Invalid Password (no number)')
+          return;
+        }
+        else if(!/^(?=.*[!@#$%^&*])/.test(password)){
+          setError('Invalid Password (no special character)')
+          return;
+        }
+        
+          createUserWithEmailAndPassword(auth, email, password)
+      .then(result => {
+        const user = result.user;
+        console.log(user)
+        setSuccess("Congratulation! Account create done.")
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        console.log(errorMessage)
+        setError(errorMessage);
+      })
+
+        
+        
+      }
+      else{
+        // alert('Email or Password are not valid')
+        setError("Email or Passoword are not Valid!");
+      }
+    }
  
 
   return (
     <div className="bg-gray-900 text-white flex justify-center items-center h-screen">
-      <div className="bg-gray-800 p-8 rounded shadow-md w-96 md:w-4/6">
+      <div className="bg-gray-800 p-8 rounded shadow-md w-96 md:w-2/5">
         <h2 className="text-2xl font-semibold mb-4">Login</h2>
-        <form>
+        <form onSubmit={handleRegister}>
           <div className="mb-4">
             <label htmlFor="name" className="block">
               Name
             </label>
             <input
+              
               type="text"
               id="name"
               name="name"
@@ -46,6 +110,7 @@ const Register = () => {
               Email
             </label>
             <input
+              onChange={(e)=>setEmail(e.target.value)}
               type="email"
               id="email"
               name="email"
@@ -57,6 +122,7 @@ const Register = () => {
               Password
             </label>
             <input
+              onChange={(e)=>setPassword(e.target.value)}
               type="password"
               id="password"
               name="password"
@@ -69,6 +135,14 @@ const Register = () => {
           >
             Login
           </button>
+
+          {
+            error && <p className="text-red-600 font-semibold">{error}</p>
+          }
+        
+          {
+            success && <p className="text-green-600 font-semibold ">{success}</p>
+          }
 
           <p className="text-center text-gray-300 mb-2">
             Already have an account?
@@ -94,6 +168,7 @@ const Register = () => {
           </div>
           <div className="flex justify-between">
             <button
+            onClick={handleGithubLogin}
               type="button"
               className="bg-gray-900 text-white py-2 px-4 rounded-md flex gap-3 items-center justify-center w-full"
             >
