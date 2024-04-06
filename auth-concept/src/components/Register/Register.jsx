@@ -91,7 +91,7 @@ const Register = () => {
   return (
     <div className="bg-gray-900 text-white flex justify-center items-center h-screen">
       <div className="bg-gray-800 p-8 rounded shadow-md w-96 md:w-2/5">
-        <h2 className="text-2xl font-semibold mb-4">Login</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-center">Create your account</h2>
         <form onSubmit={handleRegister}>
           <div className="mb-4">
             <label htmlFor="name" className="block">
@@ -133,7 +133,7 @@ const Register = () => {
             type="submit"
             className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 mb-4"
           >
-            Login
+            Register
           </button>
 
           {
