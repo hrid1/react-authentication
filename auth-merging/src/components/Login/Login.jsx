@@ -1,13 +1,41 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
+import { connectStorageEmulator } from "firebase/storage";
+import { EmailAuthCredential } from "firebase/auth";
 
 const Login = () => {
+
+  
+  // const authInfo = useContext(AuthContext);
+  const authInfo = useContext(AuthContext);
+  const {loginUser} = authInfo;
+  
+  const hanldeLogin = e => {
+  
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    console.log(email, password);
+    loginUser(email, password)
+    .then(result => {
+      console.log(result.user);
+    })
+    .catch(error => {
+      console.log(error.message);
+    })
+
+
+  }
+
+
   return (
     <div className="flex items-center justify-center h-screen bg-gray-900">
       <div className="max-w-md mx-auto bg-gray-800 rounded-lg overflow-hidden md:max-w-lg">
         <div className="md:flex">
           <div className="w-full p-4">
             <h1 className="text-xl font-semibold mb-4 text-white">Login</h1>
-            <form>
+            <form onSubmit={hanldeLogin}>
               <div className="mb-4">
                 <label
                   htmlFor="email"
