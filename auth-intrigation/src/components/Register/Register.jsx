@@ -4,7 +4,6 @@ import { AuthContext } from "../Provider/AuthProvider";
 
 const Register = () => {
   const authInfo = useContext(AuthContext);
-  console.log(authInfo);
   const { creatUser } = authInfo;
 
   const handleRegister = (e) => {

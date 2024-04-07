@@ -28,7 +28,12 @@ const AuthProvider = ({children}) => {
 
 export default AuthProvider;
 
-// 1.create provider and export
+// AuthProvider.proptypes = {
+//     children: PropTypes.node
+// }
+
+
+// 1.create provider and export it
 // 2.set provider with value
 // 3.use auth provider in main.jsx file
 

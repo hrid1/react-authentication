@@ -3,12 +3,10 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../Provider/AuthProvider";
 import auth from "../../firebase/firebase.config";
 
-
 const Login = () => {
   const authInfo = useContext(AuthContext);
-  const {loginUser} = authInfo;
+  const { loginUser } = authInfo;
   
-
     const handleLogin = e => {
         e.preventDefault();
         const email = e.target.email.value;
