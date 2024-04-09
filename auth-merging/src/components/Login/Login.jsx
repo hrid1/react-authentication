@@ -1,8 +1,6 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
-import { connectStorageEmulator } from "firebase/storage";
-import { EmailAuthCredential } from "firebase/auth";
 
 const Login = () => {
 

@@ -1,9 +1,12 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 
 const PrivateRoute = ({children}) => {
-    const user = 'hridoyy';
+    
+    const {user} = useContext(AuthContext)
+
     const navigate = useNavigate();
 
     if(!user) {

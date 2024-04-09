@@ -9,6 +9,8 @@ import Contact from "./components/Contact/Contact";
 import Genareator from "./components/Genarator/Genareator";
 import Login from "./components/Login/Login";
 import PrivateRoute from "./components/Auth/PrivateRoute";
+import AuthProvider from "./contexts/AuthProvider";
+import Register from "./components/Register/Register";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +24,10 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact></Contact>,
+      },
+      {
+        path: '/register',
+        element: <Register></Register>
       },
       {
         path: "/genarator",
@@ -41,6 +47,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   </React.StrictMode>
 );

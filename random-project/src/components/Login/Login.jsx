@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
   
@@ -8,12 +9,32 @@ const Login = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("")
 
+  const {setUser, login} = useContext(AuthContext)
+
   // handle submit form
   const handleSubmit = e => {
     e.preventDefault();
+    if(error){
+      // alert('Wrong Email or Passwod!')
+      e.target.password.focus();
+      return;
+
+    }
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
+
+    login(email, password)
+    .then(result => {
+      setUser(result.user);
+      console.log(result.user);
+    })
+    .catch(error => {
+      console.log(error.message);
+    })
+    
+
+
   }
 
 
@@ -57,7 +78,7 @@ const Login = () => {
         <h2 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
           Login
         </h2>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"

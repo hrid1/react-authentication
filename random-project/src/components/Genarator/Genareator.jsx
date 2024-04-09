@@ -1,8 +1,10 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthProvider";
 const Genareator = () => {
 
-  const user = null;
+  const { user } = useContext(AuthContext);
+  console.log(user)
 
 //   const navigate = useNavigate();
 
