@@ -30,6 +30,14 @@ const router = createBrowserRouter([
       {
         path: "/order", 
         element:<PrivateRoutes> <Orders></Orders> </PrivateRoutes>
+      },
+      {
+        path: '/profile',
+        element: <h2>This is profile</h2>
+      },
+      {
+        path: '/dashborad',
+        element: <h2>This is Dashboard</h2>
       }
     ],
   },

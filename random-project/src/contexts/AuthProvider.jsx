@@ -1,4 +1,4 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../firebase/firebase.config";
 import { createContext, useState } from "react";
 
@@ -13,7 +13,11 @@ const AuthProvider = ({ children }) => {
         return signInWithEmailAndPassword(auth, email, password)
     }
 
-    return <AuthContext.Provider value={{user, setUser, login, loading, setLoading}}>
+    const register = (email, password) => {
+        return createUserWithEmailAndPassword(auth, email, password);
+    }
+
+    return <AuthContext.Provider value={{user, setUser, login, register, loading, setLoading}}>
         { children }
     </AuthContext.Provider>
 };

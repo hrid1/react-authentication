@@ -1,31 +1,29 @@
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-
-  
   // const authInfo = useContext(AuthContext);
   const authInfo = useContext(AuthContext);
-  const {loginUser} = authInfo;
+  const { loginUser } = authInfo;
+  const navigate = useNavigate();
   
-  const hanldeLogin = e => {
-  
+
+  const hanldeLogin = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
     loginUser(email, password)
-    .then(result => {
-      console.log(result.user);
-    })
-    .catch(error => {
-      console.log(error.message);
-    })
-
-
-  }
-
+      .then((result) => {
+        console.log(result.user);
+        e.target.reset();
+        navigate('/');
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
 
   return (
     <div className="flex items-center justify-center h-screen bg-gray-900">
